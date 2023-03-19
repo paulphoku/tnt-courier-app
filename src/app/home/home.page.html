@@ -1,20 +1,18 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- Home --> 
+<div class="container-signup">
+	<div class="mt-40 px-20 d-flex align-center text-white">
+		<a  class="flip-x btn-circle btn-circle-white btn-circle-primary center d-flex">
+			<!-- <img src="../../../assets/arrow-black.svg"/> -->
+		</a>
+	</div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+	<div class="signin-login">
+		<img class="signin-login" src="../../assets/logo/T&T courier logo transparent.png"/>
+	</div>
+	<div class="container-signup-child pt-40 px-20 bg-white">
+		<p class="t-center">Just around your corner !</p>
+		<a (click)="signin()" class="mt-40 btn btn-black">Sign in</a>
+		<a (click)="signup()" class="mt-15 btn btn-black">Sign up</a>
+		<p class="mt-20 pb-30 fine-print t-center">Sign up as a <a href="" class="link">driver and earn money</a></p>
+	</div>
+</div>

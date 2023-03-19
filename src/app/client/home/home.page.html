@@ -1,0 +1,24 @@
+<div class="container-signup-landing" id="main-content">
+	<div *ngIf="isPinDroped === false" class="mt-40 pb-20 px-20 fixed width-100 d-flex align-center space-between">
+		<a (click)="present_menu()" class="btn-circle btn-circle-black center d-flex"><ion-icon name="menu-outline" style="font-size: 30px;margin: auto;color: white;"></ion-icon></a>
+	</div>
+
+	<div *ngIf="isPinDroped === true" class="mt-40 pb-20 px-20 fixed width-100 d-flex align-center space-between">
+		<a (click)="dismiss_pindrop()" class="btn-circle btn-circle-black center d-flex"><ion-icon name="close-outline" style="font-size: 30px;margin: auto;color: white;"></ion-icon></a>
+	</div>
+
+	<div class="map" id="map_canvas_client">
+	</div>
+
+	<div  class="container-signup-child">
+		<div *ngIf="isPinDroped === false" class="d-flex flex-end pb-20 px-20">
+			<a (click)="locate()" class="btn-circle-loc center d-flex">
+				<ion-icon name="locate-outline" style="font-size: 30px;color: black;margin: auto;"></ion-icon>
+			</a>
+		</div>
+
+		<div *ngIf="isPinDroped === true" class="d-flex flex-end pb-20 px-20">
+			<a (click)="confirm_pindrop()" class="btn-circle-success  center d-flex"><ion-icon name="checkmark-outline" style="font-size: 30px;color: black;margin: auto;"></ion-icon></a>
+		</div>
+	</div>
+</div>

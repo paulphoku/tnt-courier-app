@@ -1,0 +1,59 @@
+<div class="container-signup-full">
+	<div class="pt-20 pb-20 fixed width-100 bg-white">
+		<div class="mt-40 d-flex align-center">
+			<a (click)="navBack()" class="flip-x btn-circle btn-circle-white center d-flex"><img src="../../../assets/arrow-black.svg"/></a>
+			<p class="ml-30 f1-5rem">Package information</p>
+		</div>
+		
+		<div class="mt-25 px-20 d-flex space-between align-center">
+			<p class="f1-5rem">Scheduled Time</p>
+			<button type="button" class="btn btn-purple collection_time align-center"><img src="../../../assets/clock.svg" width="19"/> <span>Now</span></button>
+		</div>
+		
+		<div class="mt-20 px-20 width-100">
+			<div class="input mt-25">
+				<input type="text" name="" placeholder="Receiver’s name"/>
+			</div>
+			
+			<div class="input mt-25">
+				<input type="tel" name="" placeholder="Contact number" maxlength="10"/>
+			</div>
+			
+			<div class="input mt-25">
+				<input type="text" name="" placeholder="Notes"/>
+			</div>
+		</div>
+		
+		<div class="fixed px-20 width-100 bg-white" style="bottom:0;">
+			<div class="mt-40 pb-30 d-flex center">
+				<a (click)="submit()" class="btn-circle btn-circle-black center d-flex"><img src="../../../assets/arrow-white.svg"/></a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="popup-bottom" style="display:none;"> <!-- Remove style="display:none;" to view popup -->
+		<div class="container-signup-child px-20 round-top bg-white calender" style="bottom:0;">
+			<p class="t-center"><button type="button" class="slide-close"><img src="../../../assets/slide-line.svg" width="90"/></button></p>
+			
+			<p class="f7rem">2020</p>
+			<p><strong>Fri, 25 Dec</strong></p>
+			<div class="mt-25 t-center">Calender days</div>
+
+			<div class="mt-40 pb-30 d-flex flex-end">
+				<button type="button" class="text-grey f9rem"><strong>Cancel</strong></button>
+				<button type="button" class="ml-30 link f9rem"><strong>Ok</strong></button>
+			</div>
+		</div>
+		
+		<div class="container-signup-child px-20 round-top bg-white calender" style="bottom:0; display:none;"> <!-- Remove style="display:none;" to view the second route of this popup -->
+			<p class="t-center"><button type="button" class="slide-close"><img src="../../../assets/slide-line.svg" width="90"/></button></p>
+			
+			<p class="t-center"><strong>11:55PM</strong></p>
+
+			<div class="mt-40 pb-30 d-flex flex-end">
+				<button type="button" class="text-grey f9rem"><strong>Cancel</strong></button>
+				<button type="button" class="ml-30 link f9rem"><strong>Ok</strong></button>
+			</div>
+		</div>
+	</div>
+</div>

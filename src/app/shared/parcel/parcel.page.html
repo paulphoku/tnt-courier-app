@@ -1,0 +1,81 @@
+<div class="container-signup-full">
+  <div class=" pb-20 bg-white">
+    <div class="mt-40 d-flex align-center ">
+      <a *ngIf="!isModal" (click)="navBack()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+          src="../../../assets/arrow-black.svg" /></a>
+      <a *ngIf="isModal" (click)="dismiss()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+          src="../../../assets/close-black.svg" /></a>
+
+      <p class="ml-30 f1-5rem ">Track Parcel</p>
+    </div>
+
+    <div>
+      <a class="mt-40 px-20 d-flex space-between align-center link-black">
+        <span><strong> Ref: TT230400001</strong><br />
+          <p class="text-grey">19 aprail 23</p>
+        </span>
+      </a>
+      <div class="mt-15 line"></div>
+    </div>
+
+    <div class="mt-30 pb-30 px-20 d-flex align-center link-black space-between">
+      <div class="pr-20 width-100 d-flex align-center">
+        <div class="pr-20">
+          <img src="../../../assets/map/dots.svg" width="9" />
+        </div>
+
+        <div>
+          <p>123 Street Address</p>
+          <p class="mt-20">456 Street address</p>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- map here -->
+    <div class="d-flex">
+      <div class="map" id="map_canvas_parcel">
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div>
+      <a class="mt-40 px-20 d-flex space-between align-center link-black">
+        <span><strong> Payment</strong><br />
+          <p class="text-grey">19 aprail 23</p>
+        </span>
+      </a>
+      <div class="mt-15 line"></div>
+    </div>
+
+
+
+    <div class="mt-30 pb-30 px-20 d-flex align-center link-black space-between">
+      <div class="pr-20 width-100 d-flex align-center">
+        <div class="pr-20">
+          <p>Fare</p>
+        </div>
+
+        <div>
+        </div>
+      </div>
+
+      <p>R20.88</p>
+    </div>
+
+    <div class=" pb-30 px-20 d-flex align-center link-black space-between">
+      <div class="pr-20 width-100 d-flex align-center">
+        <div class="pr-20">
+          <p>Booking fee</p>
+        </div>
+
+        <div>
+        </div>
+      </div>
+
+      <p>R2.31</p>
+    </div>
+  </div>
+</div>

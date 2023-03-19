@@ -1,0 +1,99 @@
+<div class="container-signup-full">
+  <div class="mt-40 pb-20 px-20 fixed width-100 d-flex align-center bg-white">
+    <a (click)="navBack()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+        src="../../../assets/arrow-black.svg" /></a>
+    <p class="ml-30 f1-5rem ">Profile</p>
+  </div>
+
+  <div style="padding-top: 5px;"></div>
+
+  <div class="container-signup-full-child pt-120 px-20">
+    <div class="t-center">
+      <img src="../../../assets/avater-default.png" width="100" class="chat-user" alt="Profile picture" />
+
+      <div class="edit-profile">
+        <img src="../../../assets/edit-black.svg" width="25" class="chat-user" alt="Profile picture" />
+      </div>
+      <br />
+
+      <p>paulphoku@gmail.com</p>
+    </div>
+
+    <div class="mt-30 d-flex gap-25">
+      <div class="input">
+        <input text="text" name="" placeholder="First name" value="Paul" />
+        <p class="text-error f7rem"></p>
+      </div>
+
+      <div class="input">
+        <input text="text" name="" maxlength="10" placeholder="Last name" value="Phoku" />
+        <p class="text-error f7rem"></p>
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="tel" name="" placeholder="Cellphone number" value="084 2929 337" />
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <select>
+          <option value="Female" selected="">Male</option>
+          <option value="Male">Male</option>
+          <option value="Male">Female</option>
+          <option value="Male">Rather not say</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <a href="#" class="btn btn-primary">Update</a>
+      </div>
+    </div>
+
+    <div class="mt-40 line"></div>
+
+    <div (click)="open_item('change-pass')" class="mt-15 pb-20 px-20 d-flex align-center link-black space-between">
+      <div class="pr-20 width-100 d-flex align-center">
+        <div class="pr-20">
+          <ion-icon name="keypad-outline" style="font-size: 30px;"></ion-icon>
+        </div>
+
+        <div>
+          <p>Change password</p>
+        </div>
+      </div>
+
+      <div>
+        <ion-icon name="chevron-forward"></ion-icon>
+      </div>
+
+    </div>
+    <div class=" line"></div>
+
+    <div (click)="open_item('change-cell')" class="mt-15 pb-20 px-20 d-flex align-center link-black space-between">
+      <div class="pr-20 width-100 d-flex align-center">
+        <div class="pr-20">
+          <ion-icon name="phone-portrait-outline" style="font-size: 30px;"></ion-icon>
+        </div>
+
+        <div>
+          <p>Change cellphone number</p>
+        </div>
+      </div>
+
+      <div>
+        <ion-icon name="chevron-forward"></ion-icon>
+      </div>
+
+    </div>
+
+    <div class=" line"></div>
+
+    
+
+
+  </div>

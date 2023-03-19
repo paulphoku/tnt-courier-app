@@ -1,0 +1,38 @@
+<div class="container-signup-full">
+  <div class=" fixed width-100 bg-white">
+
+    <div class="mt-40 d-flex align-center bg-white">
+      <a (click)="dismiss()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+          src="../../../assets/close-black.svg" /></a>
+      <p class="ml-30 f1-5rem ">Add card</p>
+    </div>
+
+    <div style="padding-top: 5px;"></div>
+
+    <div class="container-signup-full-child pt-20 px-20">
+
+      <div class="mt-25">
+        <div class="input">
+          <input type="number" name="" maxlength="16" placeholder="Card number" />
+        </div>
+      </div>
+
+      <div class="mt-30 d-flex gap-25">
+        <div class="input">
+          <input type="number" name="" maxlength="4" placeholder="Expiry date" />
+          <p class="text-error f7rem"></p>
+        </div>
+
+        <div class="input">
+          <input type="number" name="" maxlength="3" placeholder="CVV" value="Phoku" />
+          <p class="text-error f7rem"></p>
+        </div>
+      </div>
+
+      <div class="mt-25">
+        <div class="input">
+          <a   class="btn btn-primary">Add</a>
+        </div>
+      </div>
+    </div>
+  </div>

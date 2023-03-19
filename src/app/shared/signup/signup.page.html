@@ -1,0 +1,83 @@
+<!-- Sign up-->
+<div class="container-signup-full">
+  <div class="pt-20 fixed width-100 bg-white">
+		<div class=" d-flex align-center ">
+			<a (click)="navBack()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+					src="../../../assets/arrow-black.svg" /></a>
+			<p class="ml-30 f1-5rem ">Signup</p>
+		</div>
+	</div>
+
+
+  <div class="container-signup-full-child pt-120 px-20">
+    <p>Please fill in all fields below.</p>
+
+    <div class="mt-30 d-flex gap-25">
+      <div class="input">
+        <input text="text" name="" placeholder="First name" />
+        <p class="text-error f7rem">Error message</p>
+      </div>
+
+      <div class="input input-error">
+        <input text="text" name="" maxlength="10" placeholder="Last name" />
+        <p class="text-error f7rem">Error message</p>
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="email" name="" placeholder="E-mail address" />
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="text" name="" placeholder="Password (min 8 characters)" />
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="text" name="" placeholder="Gender" />
+      </div>
+    </div>
+
+    <div class="mt-30">
+      <p>Billing information</p>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="text" name="" placeholder="Street address" />
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="text" name="" placeholder="Apartmet, unit etc. (Optional)" />
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="text" name="" placeholder="City/Surburb" />
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="text" name="" placeholder="Province" />
+      </div>
+    </div>
+
+    <div class="mt-25">
+      <div class="input">
+        <input text="text" name="" placeholder="Postal code" />
+      </div>
+    </div>
+
+    <div class="mt-40 pb-30">
+      <a (click)="submit()" class="btn btn-primary">Sign up</a>
+    </div>
+  </div>
+</div>

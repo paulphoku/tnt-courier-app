@@ -1,0 +1,65 @@
+<div class="container-signup-full">
+	<div class="pt-20 fixed width-100 bg-white">
+		<div class=" d-flex align-center ">
+      <a href="#" class="flip-x btn-circle btn-circle-white center d-flex"><img src="../../../assets/arrow-black.svg"/></a>
+      <p class="ml-30 f1-5rem text-purple"></p>
+    </div>
+		
+		<p class="mt-30 px-20 f1-5rem">How can we help you?</p>
+		<p class="px-20 f7rem text-grey">12 Dec 2020</p>
+		
+		<div class="mt-30 line"></div>
+	</div>
+	
+	<div class="container-signup-full-child mt-40 pt-120 pb-30">
+		<div class="mt-40 px-20 pb-30 text-grey">
+			<div class="article-data">
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+				<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum</p>
+			</div>
+			
+			<div class="mt-40 pt-20 d-flex align-center text-grey">
+				<p>Still need help?</p>
+				<a href="" class="ml-30 width-auto display-inline-block btn btn-purple-background btn-small">Get help</a>
+			</div>
+			
+			<div class="mt-40 pt-20 pb-30 t-center text-grey">
+				<div class="rate-box" style="display:;"> <!-- After user chooses either 'Yes' or 'No' hide this box and show the feedback message -->
+					<p>Was this article helpful?</p>
+					<a href="" class="mt-15 width-auto display-inline-block btn btn-purple-background btn-small rate">Yes</a>
+					<a href="" class="mt-15 ml-30 width-auto display-inline-block btn btn-purple-background btn-small rate">No</a>
+				</div>
+				
+				<p style="display:none;">Thank you for your feedback!</p> <!-- Feedback message -->
+			</div>
+		</div>
+	</div>
+	
+	<div class="popup-bottom" style="position:absolute; display:none;"> <!-- Remove style="display:none;" to view popup -->
+		<div class="container-signup-child px-20 round-top bg-white" style="bottom:0;">
+			<p class="t-center"><button type="button" class="slide-close"><img src="../images/slide-line.svg" width="90"/></button></p>
+			
+			<p class="f1-5rem">What is your question?</p>
+			
+			<div class="mt-15 width-100 pb-30">
+				<textarea id="chat-box-textarea" class="chat-box-textarea width-100" placeholder="Send message..." style="padding-left:0; resize:none; border-radius:0; border-bottom:.1rem solid #DCDBDB;"></textarea>
+			</div>
+
+			<div class="mt-40 pb-30 d-flex flex-end">
+				<button type="button" class="text-grey f9rem"><strong>Cancel</strong></button>
+				<button type="button" class="ml-30 link f9rem"><strong>Submit question</strong></button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="popup-center popup-translucent px-20" style="display:none;"> <!-- Remove style="display:none;" to view popup -->
+		<div class="pt-20 pb-20 px-20 fixed width-100 d-flex align-center space-between" style="top:0">
+			<a href="#" class="btn-circle center d-flex"><img src="../images/close-white.svg"></a>
+		</div>
+		
+		<div class="container-signup-child px-20 t-center" style="position:static">
+			<img src="../images/check-purple.svg" width="60">
+			<p class="pt-20 pb-20 f1-5rem text-purple"><strong>Thank you for your message, please allow for some time for us to get back to you.</strong></p>
+		</div>
+	</div>
+</div>

@@ -1,7 +1,7 @@
 {
-  "name": "tntcourier_app",
+  "name": "TnT Courier",
   "integrations": {
-    "capacitor": {}
+    "cordova": {}
   },
   "type": "angular"
 }

@@ -1,0 +1,24 @@
+<div class="container-signup-full">
+  <div>
+    <!-- Remove style="display:none;" to view popup -->
+    <div class="mt-40 px-20 bg-white">
+      <p class="f1-5rem">Reset password</p>
+
+      <!-- disable or hide if signedin -->
+      <div class="mt-15 width-100 pb-30">
+        <form class="input" [formGroup]="reset_passForm" >
+          <input formControlName="email" class="input-group" type="email'"  name="" maxlength="10" placeholder="email address " />
+          <div>
+            <ion-icon name="at-outline"
+              style="font-size: 30px;"></ion-icon>
+          </div>
+        </form>
+        </div>
+
+      <div class="mt-40 pb-30 d-flex flex-end">
+        <button (click)="dismiss()" type="button" class="text-grey f9rem"><strong>Cancel</strong></button>
+        <button (click)="submit()"type="button" class="ml-30 link f9rem"><strong>Submit</strong></button>
+      </div>
+    </div>
+  </div>
+</div>

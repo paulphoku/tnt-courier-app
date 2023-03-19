@@ -1,0 +1,76 @@
+<div class="container-signup-full">
+  <div class=" fixed width-100 bg-white">
+    <div class=" mt-40 d-flex align-center ">
+      <a (click)="navBack()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+          src="../../../assets/arrow-black.svg" /></a>
+      <p class="ml-30 f1-5rem ">About</p>
+    </div>
+  </div>
+
+  <div></div>
+
+  <div class="container-signup-full-child pt-120 pb-30">
+
+    <div>
+      <a class="mt-20 px-20 d-flex space-between align-center link-black">
+        <span>About us</span>
+      </a>
+      <div class="mt-15 line"></div>
+    </div>
+
+    <div>
+      <a class="mt-20 px-20 d-flex space-between align-center link-black">
+        <span>Solutions for transport and warehousing</span>
+      </a>
+      <div class="mt-15 line"></div>
+    </div>
+
+    <div>
+      <a class="mt-20 px-20 d-flex space-between align-center link-black">
+        <span>Careers</span>
+      </a>
+      <div class="mt-15 line"></div>
+    </div>
+
+
+  </div>
+
+  
+
+  <div class="popup-bottom" style="position:absolute; display:none;">
+    <!-- Remove style="display:none;" to view popup -->
+    <div class="container-signup-child px-20 round-top bg-white" style="bottom:0;">
+      <p class="t-center"><button type="button" class="slide-close"><img src="../../../assets/slide-line.svg"
+            width="90" /></button></p>
+
+      <p class="f1-5rem">What is your question?</p>
+
+      <div class="mt-15 width-100 pb-30">
+        <textarea id="chat-box-textarea" class="chat-box-textarea width-100" placeholder="Send message..."
+          style="padding-left:0; resize:none; border-radius:0; border-bottom:.1rem solid #DCDBDB;"></textarea>
+      </div>
+
+      <div class="mt-40 pb-30 d-flex flex-end">
+        <button type="button" class="text-grey f9rem"><strong>Cancel</strong></button>
+        <button type="button" class="ml-30 link f9rem"><strong>Submit question</strong></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup-center popup-translucent px-20" style="display:none;">
+    <!-- Remove style="display:none;" to view popup -->
+    <div class="pt-20 pb-20 px-20 fixed width-100 d-flex align-center space-between" style="top:0">
+      <a href="#" class="btn-circle center d-flex"><img src="../../../assets/close-white.svg"></a>
+    </div>
+
+    <div class="container-signup-child px-20 t-center" style="position:static">
+      <img src="../../../assets/check-purple.svg" width="60">
+      <p class="pt-20 pb-20 f1-5rem text-purple"><strong>Thank you for your message, please allow for some time
+          for us to get back to you.</strong></p>
+    </div>
+  </div>
+</div>
+
+<footer style="background-color: white;">
+  <p class="mt-20 pb-30 fine-print t-center">developed by <a mailito="paulphoku@gmail.com" class="link">paulphoku@gmail.com </a></p>
+</footer>

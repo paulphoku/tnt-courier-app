@@ -1,0 +1,36 @@
+<div class="container-signup-full">
+  <div>
+    <!-- Remove style="display:none;" to view popup -->
+    <div class="mt-40 px-20 bg-white">
+      <p class="f1-5rem">Change password</p>
+
+      <div class="mt-15 width-100 pb-30">
+        <div class="input">
+          <input class="input-group" [type]="isPv1 === true ? 'text' : 'password'"  name="" maxlength="10" placeholder="password" />
+          <div class="map-icon">
+            <ion-icon (click)="set_isPv1()" [name]="isPv1 === true ? 'eye-off-outline' : 'eye-outline'"
+              style="font-size: 30px;"></ion-icon>
+          </div>
+        </div>
+
+        <div class="input">
+          <input class="input-group" [type]="isPv2 === true ? 'text' : 'password'"  name="" maxlength="10" placeholder="password" />
+          <div class="map-icon">
+            <ion-icon (click)="set_isPv2()" [name]="isPv2 === true ? 'eye-off-outline' : 'eye-outline'"
+              style="font-size: 30px;"></ion-icon>
+          </div>
+        </div>
+
+
+        <div class="mt-25">
+          <a (click)="reset_pass()" class="link">I forgot my password</a>
+        </div>
+      </div>
+
+      <div class="mt-40 pb-30 d-flex flex-end">
+        <button (click)="dismiss()" type="button" class="text-grey f9rem"><strong>Cancel</strong></button>
+        <button (click)="submit()"type="button" class="ml-30 link f9rem"><strong>Submit</strong></button>
+      </div>
+    </div>
+  </div>
+</div>
