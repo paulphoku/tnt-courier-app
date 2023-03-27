@@ -9,22 +9,22 @@
 
     <div style="padding-top: 5px;"></div>
 
-    <div class="container-signup-full-child pt-20 px-20">
+    <form [formGroup]="cardForm" class="container-signup-full-child pt-20 px-20">
 
       <div class="mt-25">
         <div class="input">
-          <input type="number" name="" maxlength="16" placeholder="Card number" />
+          <input card-number formControlName="number" type="text" name="" maxlength="19" placeholder="Card number" />
         </div>
       </div>
 
       <div class="mt-30 d-flex gap-25">
         <div class="input">
-          <input type="number" name="" maxlength="4" placeholder="Expiry date" />
+          <input card-date formControlName="date" type="text" name="" maxlength="5" placeholder="Expiry date" />
           <p class="text-error f7rem"></p>
         </div>
 
         <div class="input">
-          <input type="number" name="" maxlength="3" placeholder="CVV" value="Phoku" />
+          <input formControlName="cvv" type="text" name="" maxlength="3" placeholder="CVV" value="Phoku" />
           <p class="text-error f7rem"></p>
         </div>
       </div>
@@ -34,5 +34,5 @@
           <a   class="btn btn-primary">Add</a>
         </div>
       </div>
-    </div>
+    </form>
   </div>

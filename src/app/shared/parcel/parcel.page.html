@@ -1,9 +1,9 @@
 <div class="container-signup-full">
   <div class=" pb-20 bg-white">
     <div class="mt-40 d-flex align-center ">
-      <a *ngIf="!isModal" (click)="navBack()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+      <a *ngIf="!ism" (click)="navBack()" class="flip-x btn-circle btn-circle-white center d-flex"><img
           src="../../../assets/arrow-black.svg" /></a>
-      <a *ngIf="isModal" (click)="dismiss()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+      <a *ngIf="ism" (click)="navBack()" class="flip-x btn-circle btn-circle-white center d-flex"><img
           src="../../../assets/close-black.svg" /></a>
 
       <p class="ml-30 f1-5rem ">Track Parcel</p>

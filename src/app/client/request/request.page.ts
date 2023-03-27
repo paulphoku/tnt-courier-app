@@ -4,6 +4,7 @@ import { GlobalService } from '../../services/global.service';
 import { RequestService } from '../../services/request.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestModel } from '../../providers/request.model';
+import { GeolocationService } from '../../services/geolocation.service';
 
 @Component({
   selector: 'app-request',
@@ -24,6 +25,7 @@ export class RequestPage implements OnInit {
     private r_service: RequestService,
     private navCtrl: NavController,
     private fb: FormBuilder,
+    private geo: GeolocationService
   ) {
     this.selectedInput = 'c';
 
@@ -45,13 +47,13 @@ export class RequestPage implements OnInit {
 
     collection.valueChanges.subscribe(val => {
       if (val.length > 0 && this.selectedInput == 'c') {
-        this.findPlaces('c');
+        this.findPlaces('c', collection.value);
       }
     });
 
     destination.valueChanges.subscribe(val => {
       if (val.length > 0) {
-        this.findPlaces('d');
+        this.findPlaces('d', destination.value);
       } else {
         //get previous addreses
         this.get_recent_places();
@@ -87,7 +89,7 @@ export class RequestPage implements OnInit {
 
 
   get isRequesting() {
-    return this.bp > .4 || (this.Request.collection_addr.length > 0)? true : false;
+    return this.bp > .4 || (this.Request.collection_addr.length > 0) ? true : false;
   }
 
   /**
@@ -143,8 +145,11 @@ export class RequestPage implements OnInit {
   /**
    * findPlaces
    */
-  public findPlaces(addr_type: string) {
+  public findPlaces(addr_type: string, addreses: string) {
     this.places = [];
+    this.geo.get_reverse_geocode('pretoria').subscribe(res => {
+      console.log(res)
+    })
   }
 
   /**

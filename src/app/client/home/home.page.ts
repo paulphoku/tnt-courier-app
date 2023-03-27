@@ -7,7 +7,6 @@ import { GeolocationService } from '../../services/geolocation.service';
 import { RequestModel } from '../../providers/request.model';
 import { environment } from 'src/environments/environment';
 import { MapStyles } from '../../providers/mapstyles';
-
 import {
   GoogleMaps,
   GoogleMap,
@@ -19,6 +18,7 @@ import {
   Environment,
   LatLngBounds
 } from '@ionic-native/google-maps';
+import { App } from '@capacitor/app';
 
 var google;
 
@@ -53,26 +53,26 @@ export class HomePage implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.platform.ready().then(() => {
-      this.load_map();
+  async ngOnInit() {
+    this.geo.get_lat().subscribe(lat => {
+      this.lat = this.geo.lat.value;
+      this.lng = this.geo.lng.value;
     })
 
     this.r_service.get_Request().subscribe(val => {
       this.Request = val;
     })
 
-    this.geo.get_lat().subscribe(lat => {
-      this.lat = this.geo.lat.value;
-      this.lng = this.geo.lng.value;
-    })
-
-
-
     this.r_service.get_isPinDroped().subscribe(val => {
       this.isPinDroped = val;
     })
+
+    this.platform.backButton.subscribeWithPriority(-1, () => {
+      App.exitApp();
+    });
   }
+
+
 
   async locate() {
     // Move the map programmatically
@@ -82,7 +82,7 @@ export class HomePage implements OnInit {
         lng: Number(this.lng)
       },
       zoom: 16,
-      duration: 1000
+      duration: 1500
     });
 
     this.map.setCompassEnabled(false);
@@ -111,21 +111,31 @@ export class HomePage implements OnInit {
         rotate: false,
         zoom: true,
       },
-      styles: style
+      // styles: style
+
     };
+    let mapElement = document.getElementById('map_canvas_client');
 
     //initialise map with current location
-    this.map = GoogleMaps.create('map_canvas_client', options);
+    this.map = GoogleMaps.create(mapElement, options);
+
+
 
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.r_service.present_crq_modal();
+    this.r_service.clear_request();
+
+    await this.platform.ready();
+    await this.load_map();
+    await this.locate();
     console.log('ionViewWillEnter')
   }
 
   async ionViewWillLeave() {
     this.r_service.dismiss_crq_modal();
+    this.map.setDiv(null);
     console.log('ionViewWillLeave')
   }
 
@@ -174,6 +184,21 @@ export class HomePage implements OnInit {
     }
 
     this.r_service.set_Request(this.Request);
+  }
+
+  async add_pin_marker() {
+
+    this.loc_marker = this.map.addMarkerSync({
+      position: { lat: Number(this.lat), lng: Number(this.lng) },
+      icon: {
+        url: "assets/map/marker origin.png",
+        size: {
+          width: 20,
+          height: 20
+        }
+      }
+    });
+
   }
 
 }

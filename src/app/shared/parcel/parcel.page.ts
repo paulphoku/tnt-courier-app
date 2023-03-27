@@ -3,6 +3,18 @@ import { ModalController, NavController, Platform } from '@ionic/angular';
 import { RequestService } from '../../services/request.service';
 import { GeolocationService } from '../../services/geolocation.service';
 import * as map_style from '../../providers/map.styles';
+import { ActivatedRoute } from '@angular/router';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  Environment,
+  LatLngBounds
+} from '@ionic-native/google-maps/ngx';
 
 @Component({
   selector: 'app-parcel',
@@ -12,106 +24,136 @@ import * as map_style from '../../providers/map.styles';
 
 export class ParcelPage implements OnInit {
 
-  @Input('isModal') isModal: Boolean;
+  @Input('ism') ism: Boolean;
   @Input('parcel') parcel: Object;
 
   @ViewChild('map')
   mapRef: ElementRef<HTMLElement>;
-  map: google.maps.Map;
+  map: GoogleMap;
+  latlng: LatLngBounds;
 
-  origin_marker: google.maps.Marker;
-  destination_marker: google.maps.Marker;
-  latlng: google.maps.LatLngBounds;
+  origin_marker: Marker;
+  destination_marker: Marker;
 
   constructor(
     private modalCtrl: ModalController,
     private r_service: RequestService,
     private geo: GeolocationService,
     private navCtrl: NavController,
-    private platform: Platform
+    private platform: Platform,
+    public activatedRoute: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
-    this.platform.ready().then(async () => {
-      this.load_map();
-    })
+  async ngOnInit() {
+    this.activatedRoute.queryParams.subscribe((res) => {
+      console.log(res);
+      this.ism = res['ism'];
+    });
+
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      console.log('Handler was called!');
+      this.navBack();
+    });
+
+    this.latlng = new LatLngBounds([
+      { lat: -25.9396489, lng: 28.138786 },
+      { lat: -25.9829208, lng: 28.2113031 }
+    ])
+
+    await this.platform.ready();
+    await this.load_map();
+    await this.locate();
+
   }
 
   async load_map() {
+    let center = {
+      lat: this.latlng.getCenter().lat,
+      lng: this.latlng.getCenter().lng
+    }
 
-    this.latlng = new google.maps.LatLngBounds(
-      { lat: -25.9396489, lng: 28.138786 },
-      { lat: -25.9829208, lng: 28.2113031 },
+    console.log(
+      center
     )
 
-    this.map = new google.maps.Map(document.getElementById('map_canvas_parcel'), {
-      center: this.latlng.getCenter(),
-      zoom: 9,
-      zoomControl: false,
-      mapTypeControl: false,
-      fullscreenControl: false,
-      streetViewControl: true,
-      scrollwheel: false,
-      draggable: false
-    });
-
-    this.map.fitBounds(this.latlng);
-    this.set_map_styles();
-
-    //DarkMap by default
-    this.map.setMapTypeId('2DMap');
-
-    this.origin_marker = new google.maps.Marker({
-      position: { lat: Number(-25.9396489), lng: Number(28.138786) },
-      map: this.map,
-      icon: {
-        url: 'assets/map/marker origin.png',
-        strokeColor: "white",
-        scaledSize: new google.maps.Size(20, 20), // scaled size
-        origin: new google.maps.Point(0, 0), // origin
-        anchor: new google.maps.Point(0, 0) // anchor
+    let options: GoogleMapOptions = {
+      controls: {
+        compass: false,
+        myLocation: false,
+        myLocationButton: false,
       },
-      title: 'Origin place'
-    });
-
-    this.destination_marker = new google.maps.Marker({
-      position: { lat: Number(-25.9829208), lng: Number(28.2113031) },
-      map: this.map,
-      icon: {
-        url: 'assets/map/marker destination.png',
-        strokeColor: "white",
-        scaledSize: new google.maps.Size(20, 20), // scaled size
-        origin: new google.maps.Point(0, 0), // origin
-        anchor: new google.maps.Point(0, 0) // anchor
+      camera: {
+        target: center,
+        // zoom: 16,
       },
-      title: 'Destination place'
+      gestures: {
+        scroll: false,
+        tilt: false,
+        rotate: false,
+        zoom: false,
+      },
+      // styles: style
+
+    };
+
+    //initialise map with current location
+    this.map = GoogleMaps.create('map_canvas_parcel', options);
+
+    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+      console.log('Map is ready!');
+
+      this.origin_marker = this.map.addMarkerSync({
+        position: { lat: -25.9396489, lng: 28.138786 },
+        icon: {
+          url: './assets/map/marker-origin.png',
+          // size: {
+          //   with: 20,
+          //   height: 20
+          // },
+          strokeColor: "white",
+          size: new google.maps.Size(24, 24), // scaled size
+          origin: new google.maps.Point(0, 0), // origin
+          anchor: new google.maps.Point(0, 0) // anchor
+        },
+        title: 'Origin place'
+      });
+
+      this.destination_marker = this.map.addMarkerSync({
+        position: { lat: Number(-25.9829208), lng: Number(28.2113031) },
+        icon: {
+          url: './assets/map/marker-destination.png',
+          // size: {
+          //   with: 20,
+          //   height: 20
+          // },
+          strokeColor: "white",
+          size: new google.maps.Size(24, 24), // scaled size
+          origin: new google.maps.Point(0, 0), // origin
+          anchor: new google.maps.Point(0, 0) // anchor
+
+        },
+        title: 'Destination place'
+      });
     });
 
-  }
 
-  dismiss() {
-    this.modalCtrl.dismiss()
+
   }
 
   navBack() {
-    this.navCtrl.pop();
+    if(this.ism){
+      this.navCtrl.navigateRoot('client');
+    }else{
+      this.navCtrl.pop();
+    }
   }
 
-  /**
-* set_styles
-*/
-  public set_map_styles() {
-    //Associate the styled map with the MapTypeId and set it to display.
-    this.map.mapTypes.set("RetroMap", map_style.RetroMapStyle);
-    this.map.mapTypes.set("DarkMap", map_style.DarkMapStyle);
-    this.map.mapTypes.set("2DMap", map_style.StandardMapStyle);
-  }
-
-  /**
-   * change_style
-   */
-  public change_style(mapStyle: any) {
-    this.map.setMapTypeId(mapStyle)
+  async locate() {
+    this.map.moveCamera({
+      target: this.latlng,
+      duration: 1500,
+      padding: 30,
+    });
   }
 
 }
