@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 export class GeolocationService {
     watch: any;
     private _OSM: string = 'https://nominatim.openstreetmap.org';
-    private _googleapis: string = `https://maps.googleapis.com/maps/api/geocode/json?key=${environment.gm_apiKey}`
+    private _googleapis: string = `https://maps.googleapis.com/maps/api`
 
     constructor(
         public zone: NgZone,
@@ -31,8 +31,9 @@ export class GeolocationService {
 
     //google apis address finder
     get_reverse_geocode(address: string) {
-        return this.http.get<any>(`${this._googleapis}&address=${address}`, {})
+        return this.http.get<any>(`${this._googleapis}/geocode/json?key=${environment.gm_apiKey}&address=${address}`, {})
     }
+
 
     public lat: BehaviorSubject<string>;
     set_lat(newValue: string): void {

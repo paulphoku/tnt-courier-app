@@ -15,6 +15,7 @@ import { RequestService } from './services/request.service';
 import { GeolocationService } from './services/geolocation.service';
 import { AlertService } from './services/alert.service';
 import { ToasterService } from './services/toaster.service';
+import {ApiService} from './services/api.service';
 
 //providers
 import { MapStyles } from './providers/mapstyles';
@@ -47,6 +48,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    
+    //Services
+    ApiService,
     GlobalService,
     RequestService,
     GeolocationService,

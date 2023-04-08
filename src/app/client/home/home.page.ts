@@ -19,6 +19,7 @@ import {
   LatLngBounds
 } from '@ionic-native/google-maps';
 import { App } from '@capacitor/app';
+import { ApiService } from '../../services/api.service';
 
 var google;
 
@@ -48,12 +49,16 @@ export class HomePage implements OnInit {
     private geo: GeolocationService,
     private navCtrl: NavController,
     private platform: Platform,
-    private map_styles: MapStyles
+    private map_styles: MapStyles,
+    private api: ApiService
+
   ) {
 
   }
 
   async ngOnInit() {
+
+
     this.geo.get_lat().subscribe(lat => {
       this.lat = this.geo.lat.value;
       this.lng = this.geo.lng.value;
@@ -70,22 +75,39 @@ export class HomePage implements OnInit {
     this.platform.backButton.subscribeWithPriority(-1, () => {
       App.exitApp();
     });
+
+    this.get_current_loc();
   }
 
-
+  /**
+    * get_current_loc
+    */
+  public async get_current_loc() {
+    this.api.get_reverse_geocode(`${this.geo.lat.value},${this.geo.lng.value}`).subscribe(res => {
+      console.log('get_current_loc', res.data);
+      this.Request.collection_addr = String(res.data.results[0].formatted_address).split(',')[0];
+      this.Request.collection_lat = res.data.results[0].geometry.location.lat;
+      this.Request.collection_lng = res.data.results[0].geometry.location.lng;
+      this.r_service.set_Request(this.Request)
+    })
+  }
 
   async locate() {
-    // Move the map programmatically
-    this.map.animateCamera({
-      target: {
-        lat: Number(this.lat),
-        lng: Number(this.lng)
-      },
-      zoom: 16,
-      duration: 1500
-    });
+    this.get_current_loc();
 
-    this.map.setCompassEnabled(false);
+    // Move the map programmatically
+    // this.map.animateCamera({
+    //   target: {
+    //     lat: Number(this.lat),
+    //     lng: Number(this.lng)
+    //   },
+    //   zoom: 16,
+    //   duration: 1500
+    // });
+
+
+
+    // this.map.setCompassEnabled(false);
   }
 
   async load_map() {

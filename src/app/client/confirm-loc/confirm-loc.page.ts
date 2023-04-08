@@ -7,7 +7,9 @@ import { GeolocationService } from '../../services/geolocation.service';
 import { FareBreakdownPage } from '../../client/fare-breakdown/fare-breakdown.page';
 import { environment } from 'src/environments/environment';
 import { ParcelPage } from '../../shared/parcel/parcel.page';
+import { RequestModel } from '../../providers/request.model';
 import * as map_style from '../../providers/map.styles';
+import { ApiService } from '../../services/api.service';
 import {
   GoogleMaps,
   GoogleMap,
@@ -26,7 +28,6 @@ import {
   styleUrls: ['./confirm-loc.page.scss'],
 })
 
-
 export class ConfirmLocPage implements OnInit {
 
   @ViewChild('map')
@@ -36,22 +37,34 @@ export class ConfirmLocPage implements OnInit {
 
   origin_marker: Marker;
   destination_marker: Marker;
+  Request: RequestModel;
+
 
   constructor(
     private r_service: RequestService,
     private navCtrl: NavController,
     private platform: Platform,
     private modalCtrl: ModalController,
+    private api: ApiService
   ) { }
 
   async ngOnInit() {
-    this.latlng = new LatLngBounds([
-      { lat: -25.9396489, lng: 28.138786 },
-      { lat: -25.9829208, lng: 28.2113031 }
-    ])
+
+
+
+    this.r_service.get_Request().subscribe(val => {
+      this.Request = val;
+      console.log('Request:', val)
+      this.latlng = new LatLngBounds([
+        { lat: this.Request.collection_lat, lng: this.Request.collection_lng },
+        { lat: this.Request.destination_lat, lng: this.Request.destination_lng }
+      ])
+    })
+
 
     await this.platform.ready();
     await this.load_map();
+    // await this.get_directions(); //enable directions api
     await this.locate();
   }
 
@@ -104,13 +117,9 @@ export class ConfirmLocPage implements OnInit {
       console.log('Map is ready!');
 
       this.origin_marker = this.map.addMarkerSync({
-        position: { lat: -25.9396489, lng: 28.138786 },
+        position: { lat: this.Request.collection_lat, lng: this.Request.collection_lng },
         icon: {
           url: './assets/map/marker-origin.png',
-          // size: {
-          //   with: 20,
-          //   height: 20
-          // },
           strokeColor: "white",
           size: new google.maps.Size(24, 24), // scaled size
           origin: new google.maps.Point(0, 0), // origin
@@ -120,13 +129,9 @@ export class ConfirmLocPage implements OnInit {
       });
 
       this.destination_marker = this.map.addMarkerSync({
-        position: { lat: Number(-25.9829208), lng: Number(28.2113031) },
+        position: { lat: this.Request.destination_lat, lng: this.Request.destination_lng },
         icon: {
           url: './assets/map/marker-destination.png',
-          // size: {
-          //   with: 20,
-          //   height: 20
-          // },
           strokeColor: "white",
           size: new google.maps.Size(24, 24), // scaled size
           origin: new google.maps.Point(0, 0), // origin
@@ -193,4 +198,15 @@ export class ConfirmLocPage implements OnInit {
     this.map.setMapTypeId(mapStyle)
   }
 
+
+  /**
+   * get_directions
+   */
+  public async get_directions() {
+    let origin = `${this.Request.collection_lat},${this.Request.collection_lng}`;
+    let destination = `${this.Request.destination_lat},${this.Request.destination_lng}`;
+    this.api.get_directions(origin, destination).subscribe(res => {
+      console.log('Directions:', res)
+    })
+  }
 }

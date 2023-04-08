@@ -2,12 +2,12 @@ export interface RequestModel {
     selectedInput:string;
     
     destination_addr: string;
-    destination_lat: Number;
-    destination_lng: Number;
+    destination_lat: number;
+    destination_lng: number;
 
     collection_addr: string;
-    collection_lat: Number;
-    collection_lng: Number;
+    collection_lat: number;
+    collection_lng: number;
 
     reciever_name: string;
     reciever_number: string;

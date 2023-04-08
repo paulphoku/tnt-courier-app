@@ -4,19 +4,22 @@ import { GlobalService } from '../../services/global.service';
 import { RequestService } from '../../services/request.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestModel } from '../../providers/request.model';
+import { placeModel } from '../../providers/place.modal';
 import { GeolocationService } from '../../services/geolocation.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-request',
   templateUrl: './request.page.html',
   styleUrls: ['./request.page.scss'],
 })
+
 export class RequestPage implements OnInit {
   bp: Number = 0;
   isPinDroped: boolean;
   requestForm: FormGroup;
   selectedInput: string;
-  places: any[];
+  Places: any[];
   Request: RequestModel;
   isRequesting$: any;
 
@@ -25,9 +28,10 @@ export class RequestPage implements OnInit {
     private r_service: RequestService,
     private navCtrl: NavController,
     private fb: FormBuilder,
-    private geo: GeolocationService
+    private geo: GeolocationService,
+    private api: ApiService
   ) {
-    this.selectedInput = 'c';
+    this.selectedInput = 'd';
 
     this.requestForm = this.fb.group({
       collection: ['', Validators.required],
@@ -67,6 +71,7 @@ export class RequestPage implements OnInit {
     this.r_service.get_crq_modal_bp().subscribe(bp => {
       this.bp = bp;
     })
+
   }
 
   /**
@@ -75,6 +80,8 @@ export class RequestPage implements OnInit {
   public dismiss() {
 
   }
+
+
 
   /**
    * clear
@@ -95,16 +102,16 @@ export class RequestPage implements OnInit {
   /**
    * select_addr
    */
-  public select_addr(place: any) {
+  public select_addr(place: placeModel) {
     if (this.Request.selectedInput === 'c') {
-      this.Request.collection_addr = place;
-      this.Request.collection_lat = 0;
-      this.Request.collection_lng = 0;
+      this.Request.collection_addr = place.description;
+      this.Request.collection_lat = place.location.lat;
+      this.Request.collection_lng = place.location.lng;
       this.r_service.set_Request(this.Request)
     } else {
-      this.Request.destination_addr = place;
-      this.Request.destination_lat = 0;
-      this.Request.destination_lng = 0;
+      this.Request.destination_addr = place.description;
+      this.Request.destination_lat = place.location.lat;
+      this.Request.destination_lng = place.location.lng;
       this.r_service.set_Request(this.Request);
 
       if (
@@ -145,10 +152,11 @@ export class RequestPage implements OnInit {
   /**
    * findPlaces
    */
-  public findPlaces(addr_type: string, addreses: string) {
-    this.places = [];
-    this.geo.get_reverse_geocode('pretoria').subscribe(res => {
-      console.log(res)
+  public findPlaces(addr_type: string, address: string) {
+
+    this.api.get_places(address).subscribe(res => {
+      console.log(res);
+      this.Places = res;
     })
   }
 
@@ -156,6 +164,6 @@ export class RequestPage implements OnInit {
      * get_recent_places
      */
   public get_recent_places() {
-    this.places = [];
+    this.Places = [];
   }
 }
