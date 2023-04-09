@@ -51,7 +51,6 @@ export class HomePage implements OnInit {
     private platform: Platform,
     private map_styles: MapStyles,
     private api: ApiService
-
   ) {
 
   }

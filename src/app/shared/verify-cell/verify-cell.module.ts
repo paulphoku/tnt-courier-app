@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { OtpPageRoutingModule } from './otp-routing.module';
+import { VerifyCellPageRoutingModule } from './verify-cell-routing.module';
 
-import { OtpPage } from './otp.page';
+import { VerifyCellPage } from './verify-cell.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { OtpPage } from './otp.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    OtpPageRoutingModule
+    VerifyCellPageRoutingModule
   ],
-  declarations: [OtpPage]
+  declarations: [VerifyCellPage]
 })
-export class OtpPageModule {}
+export class VerifyCellPageModule {}

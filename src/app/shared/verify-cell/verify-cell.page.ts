@@ -7,12 +7,11 @@ import { GlobalService } from '../../services/global.service';
 import { AlertService } from '../../services/alert.service';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.page.html',
-  styleUrls: ['./signin.page.scss'],
+  selector: 'app-verify-cell',
+  templateUrl: './verify-cell.page.html',
+  styleUrls: ['./verify-cell.page.scss'],
 })
-export class SigninPage implements OnInit {
-  
+export class VerifyCellPage implements OnInit {
   verifyForm: FormGroup;
   isSubmitted: boolean = false;
   Otp: OtpModel = this.global.Otp.value;
@@ -23,8 +22,8 @@ export class SigninPage implements OnInit {
     private api: ApiService,
     private loadCtrl: LoadingController,
     private global: GlobalService,
-    private alert: AlertService,) { }
-
+    private alert: AlertService,
+  ) { }
 
   ngOnInit() {
     this.verifyForm = this.fb.group({
@@ -51,15 +50,14 @@ export class SigninPage implements OnInit {
 
     this.Otp.otp = otp;
     this.Otp.tel = tel;
-    
 
     //check if number exits
     this.api.get_user(tel).subscribe(res => {
       if (res.data.length > 0) {
+        this.alert.presentWarnAlert('This number is alredy registerd on the platform!')
+      } else {
         //send otp
         this.do_send_sms();
-      } else {
-        this.alert.presentWarnAlert('This number is alredy registerd on the platform!')
       }
     })
 

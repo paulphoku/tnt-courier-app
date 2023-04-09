@@ -23,6 +23,10 @@ export class HomePage {
   * signin
   */
   public signup() {
-    this.navCtrl.navigateForward('otp')
+    this.navCtrl.navigateForward('verify-cell',{
+      queryParams: {
+        prev_url: 'signup',
+      },
+    })
   }
 }

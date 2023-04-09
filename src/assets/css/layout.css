@@ -53,9 +53,11 @@ input:focus {
 	0% {
 		opacity: 1;
 	}
+
 	50% {
 		opacity: 0.6;
 	}
+
 	100% {
 		opacity: 1;
 	}
@@ -320,8 +322,8 @@ strong {
 }
 
 .btn-success {
-	color: black; 
-	border-color: #2dd36f ;
+	color: black;
+	border-color: #2dd36f;
 	background: #2dd36f;
 }
 
@@ -438,12 +440,18 @@ strong {
 .input div {
 	margin-left: 1rem;
 	position: absolute;
-	top: 51%; /* Debug */
+	top: 51%;
+	/* Debug */
 	-webkit-transform: translate(0%, -50%);
 	transform-x: translate(0%, -50%);
 }
 
 .input img {
+	width: 2rem;
+	vertical-align: middle;
+}
+
+.input-error img {
 	width: 2rem;
 	vertical-align: middle;
 }
@@ -482,7 +490,6 @@ ion-select:focus {
 .input-error select,
 .input-error ion-datetime,
 .input-error ion-select {
-	border-color: #e11900;
 	padding: 1rem 0.8rem;
 	font-size: 1rem;
 	width: 100%;
@@ -490,6 +497,10 @@ ion-select:focus {
 	border-radius: 0.3rem;
 	background: whitesmoke;
 }
+
+
+
+
 .btn-circle {
 	width: 4rem;
 	height: 4rem;
@@ -609,7 +620,7 @@ ion-select:focus {
 	background: #f4f4fa;
 }
 
-.parcel-fit > div {
+.parcel-fit>div {
 	width: 80%;
 }
 
@@ -683,11 +694,11 @@ ion-select:focus {
 	height: 100vh;
 }
 
-.menu > div {
+.menu>div {
 	overflow: visible;
 }
 
-.menu > div > div:last-of-type {
+.menu>div>div:last-of-type {
 	position: absolute;
 	left: 20px;
 	right: 20px;
@@ -722,7 +733,7 @@ ion-select:focus {
 	width: 60px;
 }
 
-.user-rating > img {
+.user-rating>img {
 	margin-top: 13px;
 }
 
@@ -767,6 +778,7 @@ ion-select:focus {
 	0% {
 		-webkit-transform: rotate(0deg);
 	}
+
 	100% {
 		-webkit-transform: rotate(360deg);
 	}
@@ -776,6 +788,7 @@ ion-select:focus {
 	0% {
 		transform: rotate(0deg);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}

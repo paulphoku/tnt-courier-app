@@ -1,31 +1,32 @@
 <!-- Sign up | Enter cellphone number -->
 <div class="container-signup">
 	<div class="mt-40 px-20 d-flex align-center text-white">
-		<a (click)="navback()" class="flip-x btn-circle btn-circle-white center d-flex"><img src="../../../assets/arrow-black.svg"/></a>
+		<a (click)="navback()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+				src="../../../assets/arrow-black.svg" /></a>
 	</div>
 
 	<div class="signin-login">
-		<img class="signin-login" src="../../../assets/logo/T&T courier logo transparent.png"/>
+		<img class="signin-login" src="../../../assets/logo/T&T courier logo transparent.png" />
 	</div>
 
 	<div class="container-signup-child pt-40  px-20  bg-white">
-		<p class="t-center">Enter cellphone number</p>
+		<p class="t-center">Enter One Time Pin</p>
 
-		<div class="mt-40">
-			<div class="input">
-				<div>
-					<img src="../../../assets/south-african-flag.svg"/>
-					<span>+27</span>
-				</div>
-
-				<input class="input-group" text="text" name="" maxlength="10" placeholder="0631234567"/>
+		<form [formGroup]="otpForm" class="mt-40">
+			<div [class]="(this.errorControl['opt'].errors && isSubmitted)? 'input input-error':'input'">
+				
+				<input style="text-align: center;" class="input" formControlName="tel" type="number" name="" maxlength="6"
+					placeholder="" />
 			</div>
-		</div>
-		
+		</form>
+
 		<div class="mt-40 d-flex center">
-			<a (click)="submit()" class="btn-circle btn-circle-black center d-flex"><img src="../../../assets/arrow-white.svg"/></a>
+			<a (click)="submit()" class="btn-circle btn-circle-black center d-flex"><img
+					src="../../../assets/arrow-white.svg" /></a>
 		</div>
 
-		<p class="mt-20 pb-30 fine-print t-center">By signing up you agree to our <a href="sign-in-page-terms.html" class="link">Terms of use</a> and <a href="sign-in-page-privacy.html" class="link">Privacy Policy</a></p>
+		<p class="mt-20 pb-30 fine-print t-center">By signing up you agree to our <a href="sign-in-page-terms.html"
+				class="link">Terms of use</a> and <a href="sign-in-page-privacy.html" class="link">Privacy Policy</a>
+		</p>
 	</div>
 </div>

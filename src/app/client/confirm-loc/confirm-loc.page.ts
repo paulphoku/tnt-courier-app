@@ -20,12 +20,13 @@ import {
   Marker,
   Environment,
   LatLngBounds
-} from '@ionic-native/google-maps/ngx';
+} from '@ionic-native/google-maps';
 
 @Component({
   selector: 'app-confirm-loc',
   templateUrl: './confirm-loc.page.html',
   styleUrls: ['./confirm-loc.page.scss'],
+
 })
 
 export class ConfirmLocPage implements OnInit {

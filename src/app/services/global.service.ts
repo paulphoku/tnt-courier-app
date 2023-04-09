@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { OtpModel } from '../providers/otp.modal';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,16 @@ export class GlobalService {
   constructor() {
     this.modal_request = new BehaviorSubject<Object>('');
     this.modal_request_bp = new BehaviorSubject<Number>(0);
+    this.Otp = new BehaviorSubject<OtpModel>({ otp: 0, tel: '' });
+  }
+
+  public Otp: BehaviorSubject<OtpModel>;
+  set_Otp(newValue: OtpModel): void {
+    this.Otp.next(newValue);
+    this.modal.request = newValue;
+  }
+  get_Otp(): Observable<OtpModel> {
+    return this.Otp.asObservable();
   }
 
   public modal_request: BehaviorSubject<object>;

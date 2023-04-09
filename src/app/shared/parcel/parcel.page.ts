@@ -14,7 +14,7 @@ import {
   Marker,
   Environment,
   LatLngBounds
-} from '@ionic-native/google-maps/ngx';
+} from '@ionic-native/google-maps';
 
 @Component({
   selector: 'app-parcel',

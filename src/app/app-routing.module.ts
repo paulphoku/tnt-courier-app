@@ -119,6 +119,10 @@ const routes: Routes = [
     path: 'fare-breakdown',
     loadChildren: () => import('./client/fare-breakdown/fare-breakdown.module').then( m => m.FareBreakdownPageModule)
   },
+  {
+    path: 'verify-cell',
+    loadChildren: () => import('./shared/verify-cell/verify-cell.module').then( m => m.VerifyCellPageModule)
+  },
 ];
 
 @NgModule({
