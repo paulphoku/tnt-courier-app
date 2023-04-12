@@ -53,7 +53,7 @@ export class VerifyCellPage implements OnInit {
 
     //check if number exits
     this.api.get_user(tel).subscribe(res => {
-      if (res.data.length > 0) {
+      if (res.status == 0) {
         this.alert.presentWarnAlert('This number is alredy registerd on the platform!')
       } else {
         //send otp
@@ -105,7 +105,11 @@ export class VerifyCellPage implements OnInit {
       console.log(res);
       loading.dismiss();
       this.global.set_Otp(this.Otp)
-      this.navCtrl.navigateForward('otp');
+      this.navCtrl.navigateForward('otp', {
+        queryParams: {
+          prev_url: 'signup'
+        }
+      });
     })
   }
 

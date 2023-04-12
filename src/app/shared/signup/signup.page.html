@@ -8,24 +8,25 @@
     </div>
   </div>
 
-  <div class="container-signup-full-child pt-120 px-20">
+  <form [formGroup]="signupForm" class="container-signup-full-child pt-120 px-20">
     <p>Please fill in all fields below.</p>
 
     <div class="mt-30 d-flex gap-25">
-      <div class="input">
-        <input text="text" name="" placeholder="First name" />
-        <p class="text-error f7rem">Error message</p>
+      <div [class]="errorControl['names'].errors  && isSubmitted ? 'input-error' :'input'">
+        <input formControlName="names" type="text" name="" placeholder="First name" />
+        <!-- <p class="text-error f7rem">Error message</p> -->
       </div>
 
-      <div class="input input-error">
-        <input text="text" name="" maxlength="10" placeholder="Last name" />
-        <p class="text-error f7rem">Error message</p>
+      <div [class]="errorControl['surname'].errors  && isSubmitted ? 'input-error' :'input'">
+        <input formControlName="surname" type="text" name="" maxlength="10" placeholder="Last name" />
+        <!-- <p class="text-error f7rem">Error message</p> -->
       </div>
     </div>
 
     <div class="mt-25">
-      <div class="input">
-        <input text="email" name="" placeholder="E-mail address" />
+      <div [class]="errorControl['email'].errors  && isSubmitted ? 'input-error' :'input'">
+        <input formControlName="email" type="email" name="" placeholder="E-mail address" />
+        <p *ngIf="errorControl['email'].errors && isSubmitted" class=" text-error f7rem">Invalid email address</p>
       </div>
     </div>
 
@@ -36,8 +37,12 @@
     </div> -->
 
     <div class="mt-25">
-      <div class="input">
-        <input text="text" name="" placeholder="Gender" />
+      <div [class]="errorControl['gender'].errors  && isSubmitted ? 'input-error' :'input'">
+        <ion-select formControlName="gender" placeholder="Gender">
+          <ion-select-option value="m">Male</ion-select-option>
+          <ion-select-option value="f">Female</ion-select-option>
+          <ion-select-option value="r">Rather not say</ion-select-option>
+        </ion-select>
       </div>
     </div>
 
@@ -78,5 +83,5 @@
     <div class="mt-40 pb-30">
       <a (click)="submit()" class="btn btn-primary">Sign up</a>
     </div>
-  </div>
+  </form>
 </div>

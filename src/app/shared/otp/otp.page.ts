@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './otp.page.html',
   styleUrls: ['./otp.page.scss'],
 })
+
 export class OtpPage implements OnInit {
   otpForm: FormGroup;
   isSubmitted: boolean = false;
@@ -29,7 +30,7 @@ export class OtpPage implements OnInit {
 
   ) {
     this.otpForm = this.fb.group({
-      opt: ['', [Validators.required, Validators.minLength(5),]]
+      otp: ['', [Validators.required, Validators.minLength(5),]]
     });
   }
 
@@ -38,17 +39,20 @@ export class OtpPage implements OnInit {
       console.log(res);
       this.prev_url = res['prev_url'];
     });
+
+    this.global.get_Otp().subscribe(val => {
+      this.Otp = val;
+    })
   }
 
   /**
    * submit
    */
   public async submit() {
-    let otp = Number(`${this.otpForm.get('opt').value}`);
-
+    let otp = Number(this.otpForm.get('otp').value);
     this.isSubmitted = true;
 
-    if (this.errorControl['opt'].errors) {
+    if (this.errorControl['otp'].errors) {
       return;
     }
 
@@ -61,16 +65,13 @@ export class OtpPage implements OnInit {
         case 'signup':
           this.navCtrl.navigateRoot('signup');
           break;
-
         default:
           break;
       }
     } else {
       const alert = await this.alert.presentWarnAlert('One Time pin is invalid');
     }
-
   }
-
 
 
   async do_send_sms() {
@@ -84,7 +85,6 @@ export class OtpPage implements OnInit {
       console.log(res);
       loading.dismiss();
       this.global.set_Otp(this.Otp)
-      this.navCtrl.navigateForward('otp-confirm');
     })
   }
 

@@ -15,7 +15,7 @@ export class AlertService {
   async presentWarnAlert(msg:string) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
-      subHeader: 'Warning ⚠️',
+      subHeader: '⚠️',
       message: msg,
       buttons: ['OK']
     });
@@ -26,7 +26,7 @@ export class AlertService {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       
-      subHeader: 'Danger ❌',
+      subHeader: '❌',
       message: msg,
       buttons: ['OK']
     });

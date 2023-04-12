@@ -12,7 +12,7 @@ import { AlertService } from '../../services/alert.service';
   styleUrls: ['./signin.page.scss'],
 })
 export class SigninPage implements OnInit {
-  
+
   verifyForm: FormGroup;
   isSubmitted: boolean = false;
   Otp: OtpModel = this.global.Otp.value;
@@ -40,6 +40,9 @@ export class SigninPage implements OnInit {
 
     let tel = `+27${this.verifyForm.get('tel').value}`;
     let otp = this.generateOTP();
+    const loading = await this.loadCtrl.create({
+      message: 'Please wait !'
+    })
 
     if (this.errorControl['tel'].errors) {
       console.log({
@@ -51,17 +54,26 @@ export class SigninPage implements OnInit {
 
     this.Otp.otp = otp;
     this.Otp.tel = tel;
-    
+
 
     //check if number exits
-    this.api.get_user(tel).subscribe(res => {
-      if (res.data.length > 0) {
-        //send otp
-        this.do_send_sms();
-      } else {
-        this.alert.presentWarnAlert('This number is alredy registerd on the platform!')
-      }
-    })
+    await loading.present();
+    try {
+      this.api.get_user(tel).subscribe(async res => {
+        await loading.dismiss();
+        console.log(res);
+        if (res.status == 0) {
+          //send otp
+          this.do_send_sms();
+        } else {
+          await this.alert.presentWarnAlert('Number is not registerd on the platform!');
+        }
+      })
+    } catch (error) {
+      await loading.dismiss();
+      this.alert.presentWarnAlert('Oops something went wrong ! 😥, please try again!')
+    }
+
 
   }
 
@@ -107,7 +119,11 @@ export class SigninPage implements OnInit {
       console.log(res);
       loading.dismiss();
       this.global.set_Otp(this.Otp)
-      this.navCtrl.navigateForward('otp');
+      this.navCtrl.navigateForward('otp',{
+        queryParams:{
+          prev_url:'signin'
+        }
+      });
     })
   }
 
