@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ModalController, NavController, NavParams, Platform } from '@ionic/angular';
+import { ModalController, LoadingController, NavController, NavParams, Platform } from '@ionic/angular';
 import { GlobalService } from '../../services/global.service';
 import { RequestService } from '../../services/request.service';
 import { PaymentPage } from '../../client/payment/payment.page';
@@ -21,12 +21,13 @@ import {
   Environment,
   LatLngBounds
 } from '@ionic-native/google-maps';
+import * as moment from 'moment';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-confirm-loc',
   templateUrl: './confirm-loc.page.html',
   styleUrls: ['./confirm-loc.page.scss'],
-
 })
 
 export class ConfirmLocPage implements OnInit {
@@ -39,6 +40,7 @@ export class ConfirmLocPage implements OnInit {
   origin_marker: Marker;
   destination_marker: Marker;
   Request: RequestModel;
+  public day = moment().add(0, 'd').format().toString();
 
 
   constructor(
@@ -46,12 +48,12 @@ export class ConfirmLocPage implements OnInit {
     private navCtrl: NavController,
     private platform: Platform,
     private modalCtrl: ModalController,
-    private api: ApiService
+    private api: ApiService,
+    private loadCtrl: LoadingController,
+    private alert: AlertService
   ) { }
 
   async ngOnInit() {
-
-
 
     this.r_service.get_Request().subscribe(val => {
       this.Request = val;
@@ -65,7 +67,7 @@ export class ConfirmLocPage implements OnInit {
 
     await this.platform.ready();
     await this.load_map();
-    // await this.get_directions(); //enable directions api
+    // await this.get_directions(); //enable directions api first
     await this.locate();
   }
 
@@ -167,20 +169,49 @@ export class ConfirmLocPage implements OnInit {
   }
 
   async submit() {
-    let modal = await this.modalCtrl.create({
-      component: ParcelPage,
-      componentProps: {
-        isModal: true,
-        parcel: {}
-      }
-    })
 
-    this.navCtrl.navigateRoot('parcel', {
-      queryParams: {
-        ism: 1,
-        t_id: 'T9989829423'
-      },
-    });
+    let user_id = 'user_id';
+    let description = '';
+    let weight = 1;
+    let price = this.Request.price;
+    let destination_address = this.Request.destination_addr;
+    let destination_lat = this.Request.destination_lat;
+    let destination_lng = this.Request.destination_lng;
+    let collection_address = this.Request.collection_addr;
+    let collection_lat = this.Request.collection_lat;
+    let collection_lng = this.Request.collection_lng;
+    let reciever_name = this.Request.reciever_name;
+    let reciever_cell = this.Request.reciever_number;
+    let request_notes = this.Request.request_notes;
+    let schedule_time = this.Request.schedule_time;
+    let polyline = this.Request.polyline;
+    let addedondatetime = this.day.substr(0, 10) + ' ' + this.day.substr(11, 8);
+
+    const loading = await this.loadCtrl.create({ message: 'Please wait!' })
+
+    loading.present();
+    try {
+      this.api.add_request(user_id, description, weight, price, destination_address, destination_lat, destination_lng, collection_address, collection_lat, collection_lng, reciever_name, reciever_cell, request_notes, schedule_time, polyline, addedondatetime).subscribe(res => {
+        console.log('Request ', res)
+        loading.dismiss();
+        if (res.status != 1) {
+          this.navCtrl.navigateRoot('parcel', {
+            queryParams: {
+              ism: 1,
+              t_id: res.data.request_id
+            },
+          });
+        } else {
+          this.alert.presentWarnAlert(res.msg)
+        }
+
+      })
+    } catch (error) {
+      loading.dismiss();
+    }
+
+
+
 
   }
 
@@ -199,7 +230,6 @@ export class ConfirmLocPage implements OnInit {
     this.map.setMapTypeId(mapStyle)
   }
 
-
   /**
    * get_directions
    */
@@ -208,6 +238,7 @@ export class ConfirmLocPage implements OnInit {
     let destination = `${this.Request.destination_lat},${this.Request.destination_lng}`;
     this.api.get_directions(origin, destination).subscribe(res => {
       console.log('Directions:', res)
+      this.Request.polyline = '';
     })
   }
 }

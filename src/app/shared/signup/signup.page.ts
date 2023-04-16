@@ -6,7 +6,6 @@ import { OtpModel } from '../../providers/otp.modal';
 import { GlobalService } from '../../services/global.service';
 import { AlertService } from '../../services/alert.service';
 import * as moment from 'moment';
-import { load } from 'www/cordova';
 
 @Component({
   selector: 'app-signup',
@@ -96,7 +95,6 @@ export class SignupPage implements OnInit {
       loading.dismiss();
       this.alert.presentWarnAlert('Oops something went wrong ! 😥, please try again!')
     }
-
   }
 
   get errorControl() {

@@ -1,0 +1,14 @@
+<!-- Home -->
+<div class="err-page" fullscreen="true">
+
+  <div class="signin-login pt-120">
+    <img class="signin-login" src="../../assets/icon/connection.png" />
+    <div class=" pt-40 px-20 pb-120 bg-white">
+      <h1 class="t-center"><strong>No Internet!</strong> </h1>
+      <p class="t-center">check your internet connection or try again</p>
+      <a *ngIf="!isLoading" (click)="retry()" class="mt-40 btn btn-black">Try again</a>
+      <a *ngIf="isLoading" class="mt-40 btn btn-black"><ion-spinner></ion-spinner></a>
+    </div>
+  </div>
+
+</div>

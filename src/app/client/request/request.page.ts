@@ -32,6 +32,7 @@ export class RequestPage implements OnInit {
     private api: ApiService
   ) {
     this.selectedInput = 'd';
+    this.get_recent_places();
 
     this.requestForm = this.fb.group({
       collection: ['', Validators.required],
@@ -46,7 +47,10 @@ export class RequestPage implements OnInit {
       // console.log('Request', val)
 
       collection.setValue(this.Request.collection_addr);
-      destination.setValue(this.Request.destination_addr);
+      if (this.Request.destination_addr) {
+        destination.setValue(this.Request.destination_addr);
+
+      }
     })
 
     collection.valueChanges.subscribe(val => {
@@ -93,10 +97,8 @@ export class RequestPage implements OnInit {
   /**
    * isRequesting
    */
-
-
   get isRequesting() {
-    return this.bp > .4 || (this.Request.collection_addr.length > 0) ? true : false;
+    return Number(this.bp) > .5 || (this.Request.destination_addr.length > 0) ? true : false;
   }
 
   /**
@@ -104,12 +106,12 @@ export class RequestPage implements OnInit {
    */
   public select_addr(place: placeModel) {
     if (this.Request.selectedInput === 'c') {
-      this.Request.collection_addr = place.description;
+      this.Request.collection_addr = place.structured_formatting;
       this.Request.collection_lat = place.location.lat;
       this.Request.collection_lng = place.location.lng;
       this.r_service.set_Request(this.Request)
     } else {
-      this.Request.destination_addr = place.description;
+      this.Request.destination_addr = place.structured_formatting;
       this.Request.destination_lat = place.location.lat;
       this.Request.destination_lng = place.location.lng;
       this.r_service.set_Request(this.Request);
@@ -165,5 +167,13 @@ export class RequestPage implements OnInit {
      */
   public get_recent_places() {
     this.Places = [];
+    try {
+      this.api.get_recent_places('user_id').subscribe(res => {
+        this.Places = res.data;
+        console.log('recent Places', res)
+      })
+    } catch (error) {
+
+    }
   }
 }

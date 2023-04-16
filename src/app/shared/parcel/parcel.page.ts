@@ -15,6 +15,8 @@ import {
   Environment,
   LatLngBounds
 } from '@ionic-native/google-maps';
+import { ApiService } from '../../services/api.service';
+import { RequestModel } from '../../providers/request.model';
 
 @Component({
   selector: 'app-parcel',
@@ -34,6 +36,9 @@ export class ParcelPage implements OnInit {
 
   origin_marker: Marker;
   destination_marker: Marker;
+  request_id: any;
+  Request: RequestModel;
+
 
   constructor(
     private modalCtrl: ModalController,
@@ -42,12 +47,28 @@ export class ParcelPage implements OnInit {
     private navCtrl: NavController,
     private platform: Platform,
     public activatedRoute: ActivatedRoute,
+    private api: ApiService,
   ) { }
 
   async ngOnInit() {
-    this.activatedRoute.queryParams.subscribe((res) => {
+    this.r_service.get_Request().subscribe(val => {
+      this.Request = val;
+      console.log('Parcel', val)
+    })
+
+    await this.platform.ready();
+    await this.load_map();
+    await this.locate();
+
+    this.activatedRoute.queryParams.subscribe(async (res) => {
       console.log(res);
       this.ism = res['ism'];
+      this.request_id = res['t_id'];
+      if (this.request_id) {
+        this.get_request();
+      } else {
+        await this.set_map_objects();
+      }
     });
 
     this.platform.backButton.subscribeWithPriority(10, () => {
@@ -60,10 +81,6 @@ export class ParcelPage implements OnInit {
       { lat: -25.9829208, lng: 28.2113031 }
     ])
 
-    await this.platform.ready();
-    await this.load_map();
-    await this.locate();
-
   }
 
   async load_map() {
@@ -71,10 +88,6 @@ export class ParcelPage implements OnInit {
       lat: this.latlng.getCenter().lat,
       lng: this.latlng.getCenter().lng
     }
-
-    console.log(
-      center
-    )
 
     let options: GoogleMapOptions = {
       controls: {
@@ -101,49 +114,14 @@ export class ParcelPage implements OnInit {
 
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
       console.log('Map is ready!');
-
-      this.origin_marker = this.map.addMarkerSync({
-        position: { lat: -25.9396489, lng: 28.138786 },
-        icon: {
-          url: './assets/map/marker-origin.png',
-          // size: {
-          //   with: 20,
-          //   height: 20
-          // },
-          strokeColor: "white",
-          size: new google.maps.Size(24, 24), // scaled size
-          origin: new google.maps.Point(0, 0), // origin
-          anchor: new google.maps.Point(0, 0) // anchor
-        },
-        title: 'Origin place'
-      });
-
-      this.destination_marker = this.map.addMarkerSync({
-        position: { lat: Number(-25.9829208), lng: Number(28.2113031) },
-        icon: {
-          url: './assets/map/marker-destination.png',
-          // size: {
-          //   with: 20,
-          //   height: 20
-          // },
-          strokeColor: "white",
-          size: new google.maps.Size(24, 24), // scaled size
-          origin: new google.maps.Point(0, 0), // origin
-          anchor: new google.maps.Point(0, 0) // anchor
-
-        },
-        title: 'Destination place'
-      });
     });
-
-
 
   }
 
   navBack() {
-    if(this.ism){
+    if (this.ism == true) {
       this.navCtrl.navigateRoot('client');
-    }else{
+    } else {
       this.navCtrl.pop();
     }
   }
@@ -156,4 +134,64 @@ export class ParcelPage implements OnInit {
     });
   }
 
+  async get_request() {
+
+    try {
+      this.api.get_request(this.request_id).subscribe(res => {
+        // console.log('Parcel', res);
+        this.Request.destination_addr = res.data[0].destination_address;
+        this.Request.destination_lat = res.data[0].destination_lat;
+        this.Request.destination_lng = res.data[0].destination_lng;
+
+        this.Request.collection_addr = res.data[0].collection_address;
+        this.Request.collection_lat = res.data[0].collection_lat;
+        this.Request.collection_lng = res.data[0].collection_lng;
+
+        this.Request.reciever_name = res.data[0].reciever_name;
+        this.Request.reciever_number = res.data[0].reciever_number;
+        this.Request.request_notes = res.data[0].request_notes;
+
+        this.Request.request_status = res.data[0].status;
+        this.Request.price = res.data[0].price;
+        this.Request.datecreated = res.data[0].addedondatetime;
+        this.Request.polyline = res.data[0].polyline;
+        this.Request.photo_url = res.data[0].photo_url;
+
+        
+        this.r_service.set_Request(this.Request);
+      })
+    } catch (error) {
+
+    }
+  }
+
+  async set_map_objects() {
+    if (!this.map) return;
+
+    this.origin_marker = this.map.addMarkerSync({
+      position: { lat: this.Request.collection_lat, lng: this.Request.collection_lng },
+      icon: {
+        url: './assets/map/marker-origin.png',
+        strokeColor: "white",
+        size: new google.maps.Size(24, 24), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+      },
+      title: this.Request.collection_addr
+    });
+
+    this.destination_marker = this.map.addMarkerSync({
+      position: { lat: this.Request.destination_lat, lng: this.Request.destination_lng },
+      icon: {
+        url: './assets/map/marker-destination.png',
+        strokeColor: "white",
+        size: new google.maps.Size(24, 24), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+      },
+      title: this.Request.destination_addr
+    });
+
+    await this.locate();
+  }
 }

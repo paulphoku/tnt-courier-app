@@ -20,7 +20,7 @@ export class RequestService {
         this.isPinDroped = new BehaviorSubject<Boolean>(false);
 
         this.Request = new BehaviorSubject<RequestModel>({
-            selectedInput: 'c',
+            selectedInput: 'd',
             collection_addr: '',
             collection_lat: 0,
             collection_lng: 0,
@@ -32,7 +32,11 @@ export class RequestService {
             price: 0,
             reciever_name: '',
             reciever_number: '',
-            request_status: ''
+            request_status: '',
+            polyline: '',
+            request_notes: '',
+            schedule_time: '',
+            request_id:''
         })
     }
 
@@ -90,7 +94,7 @@ export class RequestService {
      */
     public clear_request() {
         let r: RequestModel = {
-            selectedInput: 'c',
+            selectedInput: 'd',
             collection_addr: '',
             collection_lat: 0,
             collection_lng: 0,
@@ -102,7 +106,11 @@ export class RequestService {
             price: 0,
             reciever_name: '',
             reciever_number: '',
-            request_status: ''
+            request_status: '',
+            schedule_time: '',
+            polyline: '',
+            request_notes: '',
+            request_id:''
         }
 
         this.set_Request(r)

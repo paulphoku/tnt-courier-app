@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'error404',
     pathMatch: 'full'
   },
   {
@@ -122,6 +122,18 @@ const routes: Routes = [
   {
     path: 'verify-cell',
     loadChildren: () => import('./shared/verify-cell/verify-cell.module').then( m => m.VerifyCellPageModule)
+  },
+  {
+    path: 'error404',
+    loadChildren: () => import('./error-pages/error404/error404.module').then( m => m.Error404PageModule)
+  },
+  {
+    path: 'error500',
+    loadChildren: () => import('./error-pages/error500/error500.module').then( m => m.Error500PageModule)
+  },
+  {
+    path: 'conn',
+    loadChildren: () => import('./error-pages/conn/conn.module').then( m => m.ConnPageModule)
   },
 ];
 

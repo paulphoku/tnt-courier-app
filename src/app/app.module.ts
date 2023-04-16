@@ -27,6 +27,8 @@ import { CardNumberDirective } from './directives/card.number.directive'
 // import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   // schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -62,6 +64,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
     //Native plugins
     Geolocation,
     StatusBar,
+    SplashScreen,
+    ScreenOrientation
   ],
   bootstrap: [AppComponent],
 })

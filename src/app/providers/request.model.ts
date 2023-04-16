@@ -1,6 +1,6 @@
 export interface RequestModel {
-    selectedInput:string;
-    
+    selectedInput: string;
+
     destination_addr: string;
     destination_lat: number;
     destination_lng: number;
@@ -12,10 +12,18 @@ export interface RequestModel {
     reciever_name: string;
     reciever_number: string;
     request_status: string;
+    request_notes: string;
+
+    schedule_time:string
 
     photo_url: string;
     datecreated: string;
-    price: Number;
+    price: number;
+
+    polyline: string;
+    request_id:string;
+
+
 
 }
 

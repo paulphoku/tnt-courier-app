@@ -56,16 +56,12 @@ export class HomePage implements OnInit {
   }
 
   async ngOnInit() {
-
-
     this.geo.get_lat().subscribe(lat => {
       this.lat = this.geo.lat.value;
       this.lng = this.geo.lng.value;
     })
 
-    this.r_service.get_Request().subscribe(val => {
-      this.Request = val;
-    })
+
 
     this.r_service.get_isPinDroped().subscribe(val => {
       this.isPinDroped = val;
@@ -75,7 +71,12 @@ export class HomePage implements OnInit {
       App.exitApp();
     });
 
-    this.get_current_loc();
+    this.r_service.get_Request().subscribe(async val => {
+      this.Request = val;
+      if (this.Request.collection_addr == '') {
+        await this.get_current_loc();
+      }
+    })
   }
 
   /**
@@ -92,21 +93,19 @@ export class HomePage implements OnInit {
   }
 
   async locate() {
-    this.get_current_loc();
+    // this.get_current_loc();
 
     // Move the map programmatically
-    // this.map.animateCamera({
-    //   target: {
-    //     lat: Number(this.lat),
-    //     lng: Number(this.lng)
-    //   },
-    //   zoom: 16,
-    //   duration: 1500
-    // });
+    this.map.animateCamera({
+      target: {
+        lat: Number(this.lat),
+        lng: Number(this.lng)
+      },
+      zoom: 16,
+      duration: 1500
+    });
 
-
-
-    // this.map.setCompassEnabled(false);
+    this.map.setCompassEnabled(false);
   }
 
   async load_map() {

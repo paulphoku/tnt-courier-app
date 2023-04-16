@@ -1,39 +1,39 @@
 <!-- Sign up | Enter cellphone number -->
 <div class="container-signup">
 	<div class="mt-40 px-20 d-flex align-center text-white">
-	  <a (click)="navback()" class="flip-x btn-circle btn-circle-white center d-flex"><img
-		  src="../../../assets/arrow-black.svg" /></a>
+		<a (click)="navback()" class="flip-x btn-circle btn-circle-white center d-flex"><img
+				src="../../../assets/arrow-black.svg" /></a>
 	</div>
-  
+
 	<div class="signin-login">
-	  <img class="signin-login" src="../../../assets/logo/T&T courier logo transparent.png" />
+		<img class="signin-login" src="../../../assets/logo/T&T courier logo transparent.png" />
 	</div>
-  
+
 	<div class="container-signup-child pt-40 px-20  bg-white">
-	  <p class="t-center">Signin</p>
-  
-	  <form [formGroup]="verifyForm" class="mt-40">
-		<div [class]="(this.errorControl['tel'].errors && isSubmitted)? 'input input-error':'input'">
-		  <div>
-			<img src="../../../assets/south-african-flag.svg" />
-			<span> &nbsp;+27</span>
-		  </div>
-  
-		  <input formControlName="tel" class="input-group" type="tel" name="" maxlength="10"
-			placeholder="076 710 4095" />
-		</div>
-	  </form>
-  
-	  <!-- <div class="mt-25">
+		<p class="t-center">Signin</p>
+
+		<form [formGroup]="verifyForm" class="mt-40">
+			<div [class]="(this.errorControl['tel'].errors && isSubmitted)? 'input input-error':'input'">
+				<div>
+					<img src="../../../assets/south-african-flag.svg" />
+					<span> &nbsp;+27</span>
+				</div>
+
+				<input formControlName="tel" class="input-group" type="tel" name="" maxlength="10"
+					placeholder="076 710 4095" />
+			</div>
+		</form>
+
+		<!-- <div class="mt-25">
 			  <div class="input input-error">
 				  <input type="password" name="" maxlength="10" placeholder="Password" />
 			  </div>
 			  <p class="text-error f7rem">Error message</p>
 		  </div> -->
-  
-	  <div class="mt-40 pb-30 d-flex center">
-		<a (click)="submit()" class="btn-circle btn-circle-black center d-flex"><img
-			src="../../../assets/arrow-white.svg" /></a>
-	  </div>
+
+		<div class="mt-40 pb-30 d-flex center">
+			<a (click)="submit()" class="btn-circle btn-circle-black center d-flex"><img
+					src="../../../assets/arrow-white.svg" /></a>
+		</div>
 	</div>
-  </div>
+</div>

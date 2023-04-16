@@ -11,8 +11,8 @@
 
     <div>
       <a class="mt-40 px-20 d-flex space-between align-center link-black">
-        <span><strong> Ref: TT230400001</strong><br />
-          <p class="text-grey">19 aprail 23</p>
+        <span><strong> Ref: {{Request.request_id}}</strong><br />
+          <p class="text-grey">{{Request.datecreated}}</p>
         </span>
       </a>
       <div class="mt-15 line"></div>
@@ -25,8 +25,8 @@
         </div>
 
         <div>
-          <p>123 Street Address</p>
-          <p class="mt-20">456 Street address</p>
+          <p>{{Request.collection_addr}}</p>
+          <p class="mt-20">{{Request.destination_addr}}</p>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
     <div>
       <a class="mt-40 px-20 d-flex space-between align-center link-black">
         <span><strong> Payment</strong><br />
-          <p class="text-grey">19 aprail 23</p>
+          <p class="text-grey">{{Request.datecreated}}</p>
         </span>
       </a>
       <div class="mt-15 line"></div>
@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <p>R20.88</p>
+      <p>R{{Request.price}}</p>
     </div>
 
     <div class=" pb-30 px-20 d-flex align-center link-black space-between">
